@@ -167,6 +167,9 @@
             formattersByFt = {
               lua = [ "stylua" ];
               javascript = [ [ "prettierd" "prettier" ] ];
+              javascriptreact = [ [ "prettierd" "prettier" ] ];
+              typescript = [ [ "prettierd" "prettier" ] ];
+              typescriptreact = [ [ "prettierd" "prettier" ] ];
               nix = [ "nixfmt" ];
             };
             formatOnSave = {
