@@ -9,6 +9,7 @@ _:
   # Communication
   "discord"
   "notion"
+  "zoom"
 
   # Utility
   "rectangle"

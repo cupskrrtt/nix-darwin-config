@@ -1,11 +1,10 @@
 { pkgs, ... }:
 
-let user = "cup"; in
+let user = "cup";
 
+in
 {
-  imports = [
-    ../modules/home-manager.nix
-  ];
+  imports = [ ../modules/home-manager.nix ];
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
@@ -18,14 +17,16 @@ let user = "cup"; in
     gc = {
       user = "root";
       automatic = true;
-      interval = { Weekday = 0; Hour = 2; Minute = 0; };
+      interval = {
+        Weekday = 0;
+        Hour = 2;
+        Minute = 0;
+      };
       options = "--delete-older-than 30d";
     };
 
     # Turn this on to make command line easier
-    extraOptions = ''
-      			experimental-features = nix-command flakes
-      		'';
+    extraOptions = "	experimental-features = nix-command flakes\n";
   };
 
   # Turn off NIX_PATH warnings now that we're using flakes
@@ -34,9 +35,7 @@ let user = "cup"; in
   # Enable fonts dir
   fonts = {
     fontDir.enable = true;
-    fonts = with pkgs; [
-      (nerdfonts.override { fonts = [ "Hack" ]; })
-    ];
+    fonts = with pkgs; [ (nerdfonts.override { fonts = [ "Hack" ]; }) ];
   };
 
   system = {

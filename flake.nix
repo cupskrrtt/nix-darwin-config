@@ -7,9 +7,7 @@
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
-    };
+    nix-homebrew = { url = "github:zhaofengli-wip/nix-homebrew"; };
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -27,7 +25,17 @@
       flake = false;
     };
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, nixvim} @inputs:
+  outputs =
+    { self
+    , darwin
+    , nix-homebrew
+    , homebrew-bundle
+    , homebrew-core
+    , homebrew-cask
+    , home-manager
+    , nixpkgs
+    , nixvim
+    }@inputs:
     let
       system = [ "aarch64-darwin" ];
       nvim = nixvim.legacyPackages.aarch64-darwin.makeNixvim {
@@ -38,9 +46,7 @@
           swapfile = false;
         };
 
-        clipboard = {
-          register = "unnamedplus";
-        };
+        clipboard = { register = "unnamedplus"; };
 
         options = {
           encoding = "utf-8";
@@ -67,64 +73,66 @@
           winblend = 0;
           wildoptions = "pum";
           background = "dark";
+          number = true;
+          relativenumber = true;
         };
 
         plugins = {
           lsp = {
             enable = true;
             servers = {
-              nil_ls = {
-                enable = true;
-              };
-              tsserver = {
-                enable = true;
-              };
-              eslint = {
-                enable = true;
-              };
-              tailwindcss = {
-                enable = true;
-              };
-              jsonls = {
-                enable = true;
-              };
+              rnix-lsp = { enable = true; };
+              tsserver = { enable = true; };
+              eslint = { enable = true; };
+              tailwindcss = { enable = true; };
+              jsonls = { enable = true; };
+              prismals = { enable = true; };
+              html = { enable = true; };
             };
+
+            onAttach = ''
+              vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+            '';
           };
-          lsp-format = {
-            enable = true;
-          };
-          lsp-lines = {
-            enable = true;
-          };
+
+          commentary = { enable = true; };
+
           nvim-cmp = {
             enable = true;
+            autoEnableSources = true;
             mapping = {
-              "<CR>" = "cmp.mapping.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true,})";
+              "<CR>" =
+                "cmp.mapping.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true,})";
               "<C-k>" = "cmp.mapping.select_prev_item()";
               "<C-j>" = "cmp.mapping.select_next_item()";
             };
+
             sources = [
-              {
-                name = "nvim_lsp";
-              }
-              {
-                name = "luasnip";
-              }
-              {
-                name = "path";
-              }
-              {
-                name = "buffer";
-              }
+              { name = "nvim_lsp"; }
+              { name = "luasnip"; }
+              { name = "path"; }
+              { name = "buffer"; }
             ];
+
+            snippet.expand = {
+              __raw = ''
+                function(args)
+                  require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                end
+              '';
+            };
           };
+
+          cmp_luasnip = { enable = true; };
+
+          luasnip = { enable = true; };
+
           lspkind = {
             enable = true;
             mode = "text";
-            cmp = {
-              enable = true;
-            };
+            cmp = { enable = true; };
           };
+
           telescope = {
             enable = true;
             extensions = {
@@ -136,26 +144,36 @@
                 grouped = true;
                 theme = "dropdown";
                 hijackNetrw = true;
-
               };
             };
           };
+
           treesitter = {
             enable = true;
-          };
-          gitsigns = {
-            enable = true;
-          };
-          ts-autotag = {
-            enable = true;
-          };
-          nvim-autopairs = {
-            enable = true;
-          };
-          toggleterm = {
-            enable = true;
+            nixGrammars = true;
+            ensureInstalled = "all";
           };
 
+          gitsigns = { enable = true; };
+
+          ts-autotag = { enable = true; };
+
+          nvim-autopairs = { enable = true; };
+
+          toggleterm = { enable = true; };
+
+          conform-nvim = {
+            enable = true;
+            formattersByFt = {
+              lua = [ "stylua" ];
+              javascript = [ [ "prettierd" "prettier" ] ];
+              nix = [ "nixfmt" ];
+            };
+            formatOnSave = {
+              lspFallback = true;
+              timeoutMs = 200;
+            };
+          };
         };
 
         colorschemes = {
@@ -261,25 +279,39 @@
       };
       forAllSystem = f: nixpkgs.lib.genAttrs (system) f;
       devShell = system:
-        let pkgs = nixpkgs.legacyPackages.${system}; in
+        let pkgs = nixpkgs.legacyPackages.${system};
+        in
         {
-          "node" = with pkgs; mkShell {
-            buildInputs = [ nvim ];
-            nativeBuildInputs = with pkgs; [ git nodejs yarn zsh ];
-            shellHook = with pkgs; ''
-              clear 
-              exec ${tmux}/bin/tmux
-            '';
-          };
+          "node" = with pkgs;
+            mkShell {
+              buildInputs = [ nvim ];
+              nativeBuildInputs = with pkgs; [ git nodejs zsh prettierd ];
+              shellHook = with pkgs; ''
+                clear 
+                exec ${tmux}/bin/tmux
+              '';
+            };
+
+          "nix" = with pkgs;
+            mkShell {
+              buildInputs = [ nvim ];
+              nativeBuildInputs = with pkgs; [ git zsh nixfmt ];
+              shellHook = with pkgs; ''
+                clear
+                exec ${tmux}/bin/tmux
+              '';
+            };
         };
       mkApp = scriptName: system: {
         type = "app";
-        program = "${(nixpkgs.legacyPackages.${system}.writeScriptBin scriptName ''
-					#!/usr/bin/env bash
-					PATH=${nixpkgs.legacyPackages.${system}.git}/bin:$PATH
-					echo "Running ${scriptName} for ${system}"
-					exec ${self}/apps/${system}/${scriptName}
-					'')}/bin/${scriptName}";
+        program = "${
+            (nixpkgs.legacyPackages.${system}.writeScriptBin scriptName ''
+              #!/usr/bin/env bash
+              PATH=${nixpkgs.legacyPackages.${system}.git}/bin:$PATH
+              echo "Running ${scriptName} for ${system}"
+              exec ${self}/apps/${system}/${scriptName}
+            '')
+          }/bin/${scriptName}";
       };
       mkDarwinApps = system: {
         "apply" = mkApp "apply" system;
@@ -295,7 +327,9 @@
       devShells = forAllSystem devShell;
       apps = nixpkgs.lib.genAttrs system mkDarwinApps;
 
-      darwinConfigurations = let user = "cup"; in
+      darwinConfigurations =
+        let user = "cup";
+        in
         {
           macos = darwin.lib.darwinSystem {
             system = "aarch64-darwin";

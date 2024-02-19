@@ -1,11 +1,9 @@
 { config, pkgs, lib, home-manager, ... }:
 
-let
-  user = "cup";
+let user = "cup";
 in
 {
-  imports = [
-  ];
+  imports = [ ];
 
   users.users.${user} = {
     name = "${user}";
@@ -21,7 +19,9 @@ in
     # App IDs from using the mas CLI app
     #masApps = {};
   };
- 
+
+  environment.systemPackages = with pkgs; [ mas ];
+
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
@@ -31,27 +31,27 @@ in
         packages = with pkgs; [
           # Terminal
           stow
+          lazygit
         ];
         stateVersion = "23.11";
       };
-      
+
       programs = {
         zsh = {
           enable = true;
-          syntaxHighlighting = {
-            enable = true;
-          };
+          syntaxHighlighting = { enable = true; };
           enableAutosuggestions = true;
           shellAliases = {
             ls = "exa --long --header --all --icons";
             gl = "lazygit";
             proj = "cd /Volumes/Cup/Dev/Projects/";
             work = "cd /Volumes/Cup/Dev/Work/";
+            mysql = "/usr/local/mysql/bin/mysql -u root -p";
             #rebuild = "darwin-rebuild switch --flake ~/dotfiles/nix/.config/nix-darwin";
           };
           initExtraFirst = ''
                         dev () {
-                           nix develop ~/nix-config#$1 -c zsh
+                           nix develop ~/nix-darwin-config#$1 -c zsh
                         }
             						eval "$(starship init zsh)"
             					'';
@@ -130,9 +130,7 @@ in
         alacritty = {
           enable = true;
           settings = {
-            env = {
-              TERM = "xterm-256color";
-            };
+            env = { TERM = "xterm-256color"; };
 
             window = {
               decorations = "none";
@@ -142,9 +140,7 @@ in
               };
             };
 
-            scrolling = {
-              history = 5000;
-            };
+            scrolling = { history = 5000; };
 
             font = {
               normal = {
@@ -255,8 +251,14 @@ in
               };
 
               indexed_colors = [
-                { index = 16; color = "#FAB387"; }
-                { index = 17; color = "#F5E0DC"; }
+                {
+                  index = 16;
+                  color = "#FAB387";
+                }
+                {
+                  index = 17;
+                  color = "#F5E0DC";
+                }
               ];
             };
             save_to_clipboard = true;
@@ -264,16 +266,56 @@ in
             live_config_reload = true;
 
             key_bindings = [
-              { key = "T"; mods = "Command"; chars = "\\x02\\x63"; }
-              { key = "W"; mods = "Command"; chars = "\\x02\\x78"; }
-              { key = "RBracket"; mods = "Command"; chars = "\\x02n"; }
-              { key = "LBracket"; mods = "Command"; chars = "\\x02p"; }
-              { key = "V"; mods = "Command|Shift"; chars = "\\x02\""; }
-              { key = "H"; mods = "Command|Shift"; chars = "\\x02%"; }
-              { key = "H"; mods = "Control|Command"; chars = "\\x02\\x1b\\x5b\\x44"; }
-              { key = "L"; mods = "Control|Command"; chars = "\\x02\\x1b\\x5b\\x43"; }
-              { key = "J"; mods = "Control|Command"; chars = "\\x02\\x1b\\x5b\\x42"; }
-              { key = "K"; mods = "Control|Command"; chars = "\\x02x1b\\x5b\\x41"; }
+              {
+                key = "T";
+                mods = "Command";
+                chars = "\\x02\\x63";
+              }
+              {
+                key = "W";
+                mods = "Command";
+                chars = "\\x02\\x78";
+              }
+              {
+                key = "RBracket";
+                mods = "Command";
+                chars = "\\x02n";
+              }
+              {
+                key = "LBracket";
+                mods = "Command";
+                chars = "\\x02p";
+              }
+              {
+                key = "V";
+                mods = "Command|Shift";
+                chars = ''\x02"'';
+              }
+              {
+                key = "H";
+                mods = "Command|Shift";
+                chars = "\\x02%";
+              }
+              {
+                key = "H";
+                mods = "Control|Command";
+                chars = "\\x02\\x1b\\x5b\\x44";
+              }
+              {
+                key = "L";
+                mods = "Control|Command";
+                chars = "\\x02\\x1b\\x5b\\x43";
+              }
+              {
+                key = "J";
+                mods = "Control|Command";
+                chars = "\\x02\\x1b\\x5b\\x42";
+              }
+              {
+                key = "K";
+                mods = "Control|Command";
+                chars = "\\x02x1b\\x5b\\x41";
+              }
             ];
 
           };
@@ -283,14 +325,10 @@ in
         starship = {
           enable = true;
           settings = {
-            format =
-              ''
-                $username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$python$character
-              ''
-            ;
-            directory = {
-              style = "blue";
-            };
+            format = ''
+              $username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$python$character
+            '';
+            directory = { style = "blue"; };
             character = {
               success_symbol = "[❯](purple)";
               error_symbol = "[❯](red)";
@@ -300,9 +338,7 @@ in
           };
         };
 
-        eza = {
-          enable = true;
-        };
+        eza = { enable = true; };
       };
     };
   };
