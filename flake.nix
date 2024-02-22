@@ -177,6 +177,11 @@
               timeoutMs = 200;
             };
           };
+
+          markdown-preview = {
+            enable = true;
+            autoStart = true;
+          };
         };
 
         colorschemes = {
