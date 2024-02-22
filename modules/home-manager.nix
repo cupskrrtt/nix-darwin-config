@@ -111,9 +111,8 @@ in
             				        # define widgets we're going to use in status bar
             				        # note, that this is not the complete list, some of them are loaded from plugins
             				        wg_session="#[fg=$thm_fg] #S #[default]"
-            				        wg_battery="#{battery_percentage}"
             				        wg_date="#[fg=$thm_blue]%h %d %H:%M#[default]"
-            				        wg_user_host="#[fg=$thm_bleu]#(whoami)#[default]"
+            				        wg_user_host="#[fg=$thm_blue]#(whoami)#[default]"
 
             				        set -g status-left "$wg_session"
             				        set -g status-right "$wg_user_host | $wg_date"

@@ -5,6 +5,7 @@ _:
   "insomnia"
   "dbeaver-community"
   "mysqlworkbench"
+  "figma"
 
   # Communication
   "discord"
