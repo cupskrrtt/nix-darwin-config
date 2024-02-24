@@ -95,8 +95,6 @@
             '';
           };
 
-          commentary = { enable = true; };
-
           nvim-cmp = {
             enable = true;
             autoEnableSources = true;
@@ -123,8 +121,6 @@
             };
           };
 
-          cmp_luasnip = { enable = true; };
-
           luasnip = { enable = true; };
 
           lspkind = {
@@ -133,20 +129,7 @@
             cmp = { enable = true; };
           };
 
-          telescope = {
-            enable = true;
-            extensions = {
-              file_browser = {
-                enable = true;
-                path = "%:p:h";
-                cwd = ''vim.fn.expand("%:p:h")'';
-                hidden = true;
-                grouped = true;
-                theme = "dropdown";
-                hijackNetrw = true;
-              };
-            };
-          };
+          telescope = { enable = true; };
 
           treesitter = {
             enable = true;
@@ -154,7 +137,10 @@
             ensureInstalled = "all";
           };
 
-          gitsigns = { enable = true; };
+          gitsigns = {
+            enable = true;
+            currentLineBlame = true;
+          };
 
           ts-autotag = { enable = true; };
 
@@ -178,9 +164,7 @@
             };
           };
 
-          markdown-preview = {
-            enable = true;
-          };
+          markdown-preview = { enable = true; };
         };
 
         colorschemes = {
@@ -212,8 +196,13 @@
             mode = "i";
           }
           {
-            action = ":Telescope file_browser<CR>";
+            action = ":Explore<CR>";
             key = "<leader>fb";
+            mode = "n";
+          }
+          {
+            action = ":Telescope find_files<CR>";
+            key = "<leader>ff";
             mode = "n";
           }
           {
@@ -280,6 +269,11 @@
           {
             action = ":ToggleTerm<CR>";
             key = "tt";
+            mode = "n";
+          }
+          {
+            action = ":Gitsigns preview_hunk<CR>";
+            key = "<leader>gt";
             mode = "n";
           }
         ];
