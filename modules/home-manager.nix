@@ -47,7 +47,6 @@ in
             proj = "cd /Volumes/Cup/Dev/Projects/";
             work = "cd /Volumes/Cup/Dev/Work/";
             mysql = "/usr/local/mysql/bin/mysql -u root -p";
-            #rebuild = "darwin-rebuild switch --flake ~/dotfiles/nix/.config/nix-darwin";
           };
           initExtraFirst = ''
                         dev () {
@@ -55,7 +54,6 @@ in
                         }
             						eval "$(starship init zsh)"
             					'';
-
         };
 
         tmux = {

@@ -157,7 +157,6 @@
               typescript = [ [ "prettierd" "prettier" ] ];
               typescriptreact = [ [ "prettierd" "prettier" ] ];
               nix = [ "nixfmt" ];
-              java = [ "javafmt" ];
             };
             formatOnSave = {
               lspFallback = true;
@@ -298,16 +297,6 @@
             mkShell {
               buildInputs = [ nvim ];
               nativeBuildInputs = with pkgs; [ git zsh nixfmt ];
-              shellHook = with pkgs; ''
-                clear
-                exec ${tmux}/bin/tmux
-              '';
-            };
-
-          "java" = with pkgs;
-            mkShell {
-              buildInputs = [ nvim ];
-              nativeBuildInputs = with pkgs; [ git zsh zulu8 javafmt ];
               shellHook = with pkgs; ''
                 clear
                 exec ${tmux}/bin/tmux
