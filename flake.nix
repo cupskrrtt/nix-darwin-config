@@ -157,6 +157,7 @@
               typescript = [ [ "prettierd" "prettier" ] ];
               typescriptreact = [ [ "prettierd" "prettier" ] ];
               nix = [ "nixfmt" ];
+              java = [ "javafmt" ];
             };
             formatOnSave = {
               lspFallback = true;
@@ -168,9 +169,9 @@
         };
 
         colorschemes = {
-          catppuccin = {
+          tokyonight = {
             enable = true;
-            flavour = "mocha";
+            style = "night";
           };
         };
 
@@ -286,7 +287,7 @@
           "node" = with pkgs;
             mkShell {
               buildInputs = [ nvim ];
-              nativeBuildInputs = with pkgs; [ git nodejs zsh prettierd ];
+              nativeBuildInputs = with pkgs; [ git nodejs_20 zsh prettierd ];
               shellHook = with pkgs; ''
                 clear 
                 exec ${tmux}/bin/tmux
@@ -297,6 +298,16 @@
             mkShell {
               buildInputs = [ nvim ];
               nativeBuildInputs = with pkgs; [ git zsh nixfmt ];
+              shellHook = with pkgs; ''
+                clear
+                exec ${tmux}/bin/tmux
+              '';
+            };
+
+          "java" = with pkgs;
+            mkShell {
+              buildInputs = [ nvim ];
+              nativeBuildInputs = with pkgs; [ git zsh zulu8 javafmt ];
               shellHook = with pkgs; ''
                 clear
                 exec ${tmux}/bin/tmux

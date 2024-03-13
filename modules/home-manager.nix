@@ -64,59 +64,52 @@ in
           baseIndex = 1;
           escapeTime = 0;
           extraConfig = ''
-                    				set -g allow-rename on
-                    				set -g automatic-rename on
-            					      set -g base-index 1
-            					      setw -g pane-base-index 1
-                            set -g detach-on-destroy on
-                            set -g mouse on
+            set -g allow-rename on
+            set -g automatic-rename on
+            set -g base-index 1
+            setw -g pane-base-index 1
+            set -g detach-on-destroy on
+            set -g mouse on
 
-            					      is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?)(diff)?$"'
+            is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?)(diff)?$"'
 
-            				        set-option -ga terminal-overrides ",xterm-256color:Tc"
+            set-option -ga terminal-overrides ",xterm-256color:Tc"
 
-            				        # --> Catppuccin (Mocha)
-            				        thm_bg="#1e1e2e"
-            				        thm_fg="#cdd6f4"
-                  					thm_cyan="#89dceb"
-            				        thm_black="#181825"
-            				        thm_gray="#313244"
-            				        thm_magenta="#cba6f7"
-            				        thm_pink="#f5c2e7"
-            				        thm_red="#f38ba8"
-            				        thm_green="#a6e3a1"
-            				        thm_yellow="#f9e2af"
-            				        thm_blue="#89b4fa"
-            				        thm_orange="#fab387"
-            				        thm_black4="#585b70"
+             set -g mode-style "fg=#7aa2f7,bg=#3b4261"
 
-            				        # =====================================
-            				        # ===    Appearence and status bar  ==
-            				        # =====================================
-            				        set -g mode-style "fg=$thm_fg,bg=$thm_bg"
+             set -g message-style "fg=#7aa2f7,bg=#3b4261"
+             set -g message-command-style "fg=#7aa2f7,bg=#3b4261"
 
-            				        # command line style
-            				        set -g message-style "fg=$thm_fg,bg=$thm_black4"
+             set -g pane-border-style "fg=#3b4261"
+             set -g pane-active-border-style "fg=#7aa2f7"
 
-            				        # status line style
-            				        set -g status-style "fg=$thm_blue,bg=$thm_bg"
+             set -g status "on"
+             set -g status-justify "left"
 
-            				        # general status bar settings
-            				        set -g status on
-            				        set -g status-interval 5
-            				        set -g status-position top
-            				        set -g status-justify left
-            				        set -g status-right-length 100
+             set -g status-style "fg=#7aa2f7,bg=#16161e"
 
-            				        # define widgets we're going to use in status bar
-            				        # note, that this is not the complete list, some of them are loaded from plugins
-            				        wg_session="#[fg=$thm_fg] #S #[default]"
-            				        wg_date="#[fg=$thm_blue]%h %d %H:%M#[default]"
-            				        wg_user_host="#[fg=$thm_blue]#(whoami)#[default]"
+             set -g status-left-length "100"
+             set -g status-right-length "100"
 
-            				        set -g status-left "$wg_session"
-            				        set -g status-right "$wg_user_host | $wg_date"
-            				        '';
+             set -g status-left-style NONE
+             set -g status-right-style NONE
+
+             set -g status-left "#[fg=#15161e,bg=#7aa2f7,bold] #S #[fg=#7aa2f7,bg=#16161e,nobold,nounderscore,noitalics]"
+             set -g status-right "#[fg=#16161e,bg=#16161e,nobold,nounderscore,noitalics]#[fg=#7aa2f7,bg=#16161e] #{prefix_highlight} #[fg=#3b4261,bg=#16161e,nobold,nounderscore,noitalics]#[fg=#7aa2f7,bg=#3b4261] %Y-%m-%d  %I:%M %p #[fg=#7aa2f7,bg=#3b4261,nobold,nounderscore,noitalics]#[fg=#15161e,bg=#7aa2f7,bold] #h "
+             if-shell '[ "$(tmux show-option -gqv "clock-mode-style")" == "24" ]' {
+               set -g status-right "#[fg=#16161e,bg=#16161e,nobold,nounderscore,noitalics]#[fg=#7aa2f7,bg=#16161e] #{prefix_highlight} #[fg=#3b4261,bg=#16161e,nobold,nounderscore,noitalics]#[fg=#7aa2f7,bg=#3b4261] %Y-%m-%d  %H:%M #[fg=#7aa2f7,bg=#3b4261,nobold,nounderscore,noitalics]#[fg=#15161e,bg=#7aa2f7,bold] #h "
+             }
+
+             setw -g window-status-activity-style "underscore,fg=#a9b1d6,bg=#16161e"
+             setw -g window-status-separator ""
+             setw -g window-status-style "NONE,fg=#a9b1d6,bg=#16161e"
+             setw -g window-status-format "#[fg=#16161e,bg=#16161e,nobold,nounderscore,noitalics]#[default] #I  #W #F #[fg=#16161e,bg=#16161e,nobold,nounderscore,noitalics]"
+             setw -g window-status-current-format "#[fg=#16161e,bg=#3b4261,nobold,nounderscore,noitalics]#[fg=#7aa2f7,bg=#3b4261,bold] #I  #W #F #[fg=#3b4261,bg=#16161e,nobold,nounderscore,noitalics]"
+
+             # tmux-plugins/tmux-prefix-highlight support
+             set -g @prefix_highlight_output_prefix "#[fg=#e0af68]#[bg=#16161e]#[fg=#16161e]#[bg=#e0af68]"
+             set -g @prefix_highlight_output_suffix ""  
+          '';
         };
 
         git = {
@@ -167,96 +160,40 @@ in
 
             colors = {
               primary = {
-                background = "#1E1E2E";
-                foreground = "#CDD6F5";
-                dim_foreground = "#CDD6F4";
-                bright_foreground = "#CDD6F4";
-              };
-
-              cursor = {
-                text = "#1E1E2E";
-                cursor = "#F5E0DC";
-              };
-
-              vi_mode_cursor = {
-                text = "#1E1E2E";
-                cursor = "#B4BEFE";
-              };
-
-              search = {
-                matches = {
-                  foreground = "#1E1E2E";
-                  background = "#A6ADC8";
-                };
-
-                focused_match = {
-                  foreground = "#1E1E2E";
-                  background = "#A6E3A1";
-                };
-
-                footer_bar = {
-                  foreground = "#1E1E2E";
-                  background = "#A6ADC8";
-                };
-              };
-
-              hints = {
-                start = {
-                  foreground = "#1E1E2E";
-                  background = "#F9E2AF";
-                };
-                end = {
-                  foreground = "#1E1E2E";
-                  background = "#A6ADC8";
-                };
-              };
-
-              selection = {
-                text = "#1E1E2E";
-                background = "#F5E0DC";
+                background = "#1a1b26";
+                foreground = "#c0caf5";
               };
 
               normal = {
-                black = "#45475A";
-                red = "#F38BA8";
-                green = "#A6E3A1";
-                yellow = "#F9E2AF";
-                blue = "#89B4FA";
-                magenta = "#F5C2E7";
-                cyan = "#94E2D5";
-                white = "#BAC2DE";
+                black = "#15161e";
+                red = "#f7768e";
+                green = "#9ece6a";
+                yellow = "#e0af68";
+                blue = "#7aa2f7";
+                magenta = "#bb9af7";
+                cyan = "#7dcfff";
+                white = "#a9b1d6";
               };
 
               bright = {
-                black = "#585B70";
-                red = "#F38BA8";
-                green = "#A6E3A1";
-                yellow = "#F9E2AF";
-                blue = "#89B4FA";
-                magenta = "#F5C2E7";
-                cyan = "#94E2D5";
-                white = "#A6ADC8";
+                black = "#414868";
+                red = "#f7768e";
+                green = "#9ece6a";
+                yellow = "#e0af68";
+                blue = "#7aa2f7";
+                magenta = "#bb9af7";
+                cyan = "#7dcfff";
+                white = "#c0caf5";
               };
 
-              dim = {
-                black = "#45475A";
-                red = "#F38BA8";
-                green = "#A6E3A1";
-                yellow = "#F9E2AF";
-                blue = "#89B4FA";
-                magenta = "#F5C2E7";
-                cyan = "#94E2D5";
-                white = "#BAC2DE";
-              };
-
-              indexed_colors = [
+              indexedColors = [
                 {
                   index = 16;
-                  color = "#FAB387";
+                  color = "#ff9e64";
                 }
                 {
                   index = 17;
-                  color = "#F5E0DC";
+                  color = "#db4b4b";
                 }
               ];
             };
