@@ -5,7 +5,7 @@ _:
   "insomnia"
   "dbeaver-community"
   "figma"
-  "podman-desktop"
+  "homebrew/cask/docker"
 
   # Communication
   "discord"

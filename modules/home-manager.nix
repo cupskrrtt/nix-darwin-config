@@ -1,8 +1,7 @@
 { config, pkgs, lib, home-manager, ... }:
 
 let user = "cup";
-in
-{
+in {
   imports = [ ];
 
   users.users.${user} = {
@@ -25,14 +24,15 @@ in
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
+
     users.${user} = { pkgs, config, lib, ... }: {
       home = {
         enableNixpkgsReleaseCheck = false;
-        packages = with pkgs; [
-          # Terminal
-          stow
-          lazygit
-        ];
+        packages = with pkgs;
+          [
+            # Terminal
+            lazygit
+          ];
         stateVersion = "24.05";
       };
 
@@ -73,7 +73,7 @@ in
 
             set-option -ga terminal-overrides ",xterm-256color:Tc"
 
-             set -g mode-style "fg=#7aa2f7,bg=#3b4261"
+            set -g mode-style "fg=#7aa2f7,bg=#3b4261"
 
              set -g message-style "fg=#7aa2f7,bg=#3b4261"
              set -g message-command-style "fg=#7aa2f7,bg=#3b4261"

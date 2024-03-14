@@ -29,18 +29,8 @@
     nodejs-lts-nixpkgs.url =
       "github:nixos/nixpkgs/9a9dae8f6319600fa9aebde37f340975cab4b8c0";
   };
-  outputs =
-    { self
-    , darwin
-    , nix-homebrew
-    , homebrew-bundle
-    , homebrew-core
-    , homebrew-cask
-    , home-manager
-    , nixpkgs
-    , nixvim
-    , ...
-    }@inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core
+    , homebrew-cask, home-manager, nixpkgs, nixvim, ... }@inputs:
     let
       system = [ "aarch64-darwin" ];
       nvim = nixvim.legacyPackages.aarch64-darwin.makeNixvim {
@@ -86,7 +76,7 @@
           lsp = {
             enable = true;
             servers = {
-              rnix-lsp = { enable = true; };
+              nil_ls = { enable = true; };
               tsserver = { enable = true; };
               eslint = { enable = true; };
               tailwindcss = { enable = true; };
@@ -157,10 +147,10 @@
             enable = true;
             formattersByFt = {
               lua = [ "stylua" ];
-              javascript = [ [ "prettierd" "prettier" ] ];
-              javascriptreact = [ [ "prettierd" "prettier" ] ];
-              typescript = [ [ "prettierd" "prettier" ] ];
-              typescriptreact = [ [ "prettierd" "prettier" ] ];
+              javascript = [[ "prettierd" "prettier" ]];
+              javascriptreact = [[ "prettierd" "prettier" ]];
+              typescript = [[ "prettierd" "prettier" ]];
+              typescriptreact = [[ "prettierd" "prettier" ]];
               nix = [ "nixfmt" ];
             };
             formatOnSave = {
@@ -286,8 +276,7 @@
       forAllSystem = f: nixpkgs.lib.genAttrs (system) f;
       devShell = system:
         let pkgs = nixpkgs.legacyPackages.${system};
-        in
-        {
+        in {
           default = with pkgs;
             mkShell {
               buildInputs = [ nvim ];
@@ -341,38 +330,35 @@
         "check-keys" = mkApp "check-keys" system;
       };
 
-    in
-    {
+    in {
       devShells = forAllSystem devShell;
       apps = nixpkgs.lib.genAttrs system mkDarwinApps;
 
-      darwinConfigurations =
-        let user = "cup";
-        in
-        {
-          macos = darwin.lib.darwinSystem {
-            system = "aarch64-darwin";
-            specialArgs = inputs;
-            modules = [
-              home-manager.darwinModules.home-manager
-              nix-homebrew.darwinModules.nix-homebrew
-              {
-                nix-homebrew = {
-                  enable = true;
-                  user = "${user}";
-                  taps = {
-                    "homebrew/homebrew-core" = homebrew-core;
-                    "homebrew/homebrew-cask" = homebrew-cask;
-                    "homebrew/homebrew-bundle" = homebrew-bundle;
-                  };
-                  mutableTaps = false;
-                  autoMigrate = true;
+      darwinConfigurations = let user = "cup";
+      in {
+        Luthfis-MacBook-Air = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = inputs;
+          modules = [
+            home-manager.darwinModules.home-manager
+            nix-homebrew.darwinModules.nix-homebrew
+            {
+              nix-homebrew = {
+                enable = true;
+                user = "${user}";
+                taps = {
+                  "homebrew/homebrew-core" = homebrew-core;
+                  "homebrew/homebrew-cask" = homebrew-cask;
+                  "homebrew/homebrew-bundle" = homebrew-bundle;
                 };
-              }
-              ./config
-            ];
-          };
+                mutableTaps = false;
+                autoMigrate = true;
+              };
+            }
+            ./config
+          ];
         };
+      };
     };
 }
 
