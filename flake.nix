@@ -24,6 +24,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+
+    #Language
+    nodejs-lts-nixpkgs.url =
+      "github:nixos/nixpkgs/9a9dae8f6319600fa9aebde37f340975cab4b8c0";
   };
   outputs =
     { self
@@ -35,6 +39,7 @@
     , home-manager
     , nixpkgs
     , nixvim
+    , ...
     }@inputs:
     let
       system = [ "aarch64-darwin" ];
@@ -288,7 +293,7 @@
               buildInputs = [ nvim ];
               nativeBuildInputs = with pkgs; [
                 git
-                nodejs_20
+                inputs.nodejs-lts-nixpkgs.legacyPackages.${system}.nodejs_20
                 zsh
                 prettierd
               ];
