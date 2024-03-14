@@ -309,6 +309,15 @@
                 exec ${tmux}/bin/tmux
               '';
             };
+          "gleam" = with pkgs;
+            mkShell {
+              buildInputs = [ nvim ];
+              nativeBuildInputs = with pkgs; [ git zsh gleam ];
+              shellHook = with pkgs; ''
+                clear
+                exec ${tmux}/bin/tmux
+              '';
+            };
         };
       mkApp = scriptName: system: {
         type = "app";
