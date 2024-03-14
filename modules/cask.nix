@@ -4,8 +4,8 @@ _:
   # Development
   "insomnia"
   "dbeaver-community"
-  "mysqlworkbench"
   "figma"
+  "podman"
 
   # Communication
   "discord"

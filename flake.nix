@@ -305,7 +305,6 @@
                 inputs.nodejs-lts-nixpkgs.legacyPackages.${system}.nodejs_20
                 zsh
                 prettierd
-                docker
               ];
               shellHook = with pkgs; ''
                 clear 
