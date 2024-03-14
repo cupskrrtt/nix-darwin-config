@@ -286,7 +286,12 @@
           "node" = with pkgs;
             mkShell {
               buildInputs = [ nvim ];
-              nativeBuildInputs = with pkgs; [ git nodejs_20 zsh prettierd ];
+              nativeBuildInputs = with pkgs; [
+                git
+                nodejs_20
+                zsh
+                prettierd
+              ];
               shellHook = with pkgs; ''
                 clear 
                 exec ${tmux}/bin/tmux
