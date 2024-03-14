@@ -288,6 +288,15 @@
         let pkgs = nixpkgs.legacyPackages.${system};
         in
         {
+          default = with pkgs;
+            mkshell {
+              buildInputs = [ nvim ];
+              nativeBuildInputs = with pkgs; [ git ];
+              shellHook = with pkgs; ''
+                clear 
+                exec ${tmux}/bin/tmux
+              '';
+            };
           "node" = with pkgs;
             mkShell {
               buildInputs = [ nvim ];
@@ -302,7 +311,6 @@
                 exec ${tmux}/bin/tmux
               '';
             };
-
           "nix" = with pkgs;
             mkShell {
               buildInputs = [ nvim ];
