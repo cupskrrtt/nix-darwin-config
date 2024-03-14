@@ -289,7 +289,7 @@
         in
         {
           default = with pkgs;
-            mkshell {
+            mkShell {
               buildInputs = [ nvim ];
               nativeBuildInputs = with pkgs; [ git ];
               shellHook = with pkgs; ''
