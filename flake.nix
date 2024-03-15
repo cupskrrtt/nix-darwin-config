@@ -101,12 +101,13 @@
             '';
 
             keymaps = {
+              diagnostic = { "<leader>da" = "open_float"; };
               lspBuf = {
                 "<leader>do" = "hover";
-                gD = "references";
-                gd = "definition";
-                gi = "implementation";
-                gt = "type_definition";
+                "<leader>dr" = "references";
+                "<leader>dd" = "definition";
+                "<leader>di" = "implementation";
+                "<leader>dt" = "type_definition";
               };
             };
           };
