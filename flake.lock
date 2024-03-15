@@ -38,6 +38,22 @@
         "type": "github"
       }
     },
+    "erlang-nixpkgs": {
+      "locked": {
+        "lastModified": 1708815994,
+        "narHash": "sha256-hL7N/ut2Xu0NaDxDMsw2HagAjgDskToGiyZOWriiLYM=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "9a9dae8f6319600fa9aebde37f340975cab4b8c0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "9a9dae8f6319600fa9aebde37f340975cab4b8c0",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -127,6 +143,38 @@
       "original": {
         "owner": "hercules-ci",
         "repo": "gitignore.nix",
+        "type": "github"
+      }
+    },
+    "gleam-nixpkgs": {
+      "locked": {
+        "lastModified": 1709780214,
+        "narHash": "sha256-p4iDKdveHMhfGAlpxmkCtfQO3WRzmlD11aIcThwPqhk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "f945939fd679284d736112d3d5410eb867f3b31c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "f945939fd679284d736112d3d5410eb867f3b31c",
+        "type": "github"
+      }
+    },
+    "go-nixpkgs": {
+      "locked": {
+        "lastModified": 1709747860,
+        "narHash": "sha256-RT4zuBy579m+l8VyIQFOR66WXfcs4g1jntZUHjh6eoI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "58ae79ea707579c40102ddf62d84b902a987c58b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "58ae79ea707579c40102ddf62d84b902a987c58b",
         "type": "github"
       }
     },
@@ -375,9 +423,28 @@
         "type": "github"
       }
     },
+    "rebar3-nixpkgs": {
+      "locked": {
+        "lastModified": 1708815994,
+        "narHash": "sha256-hL7N/ut2Xu0NaDxDMsw2HagAjgDskToGiyZOWriiLYM=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "9a9dae8f6319600fa9aebde37f340975cab4b8c0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "9a9dae8f6319600fa9aebde37f340975cab4b8c0",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "darwin": "darwin",
+        "erlang-nixpkgs": "erlang-nixpkgs",
+        "gleam-nixpkgs": "gleam-nixpkgs",
+        "go-nixpkgs": "go-nixpkgs",
         "home-manager": "home-manager",
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
@@ -385,7 +452,8 @@
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_4",
         "nixvim": "nixvim",
-        "nodejs-lts-nixpkgs": "nodejs-lts-nixpkgs"
+        "nodejs-lts-nixpkgs": "nodejs-lts-nixpkgs",
+        "rebar3-nixpkgs": "rebar3-nixpkgs"
       }
     },
     "systems": {

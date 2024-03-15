@@ -28,6 +28,15 @@
     #Language
     nodejs-lts-nixpkgs.url =
       "github:nixos/nixpkgs/9a9dae8f6319600fa9aebde37f340975cab4b8c0";
+    gleam-nixpkgs.url =
+      "github:nixos/nixpkgs/f945939fd679284d736112d3d5410eb867f3b31c";
+    erlang-nixpkgs.url =
+      "github:nixos/nixpkgs/9a9dae8f6319600fa9aebde37f340975cab4b8c0";
+    rebar3-nixpkgs.url =
+      "github:nixos/nixpkgs/9a9dae8f6319600fa9aebde37f340975cab4b8c0";
+    go-nixpkgs.url =
+      "github:nixos/nixpkgs/58ae79ea707579c40102ddf62d84b902a987c58b";
+
   };
   outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core
     , homebrew-cask, home-manager, nixpkgs, nixvim, ... }@inputs:
@@ -83,11 +92,23 @@
               jsonls = { enable = true; };
               prismals = { enable = true; };
               html = { enable = true; };
+              gleam = { enable = true; };
+              gopls = { enable = true; };
             };
 
             onAttach = ''
               vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
             '';
+
+            keymaps = {
+              lspBuf = {
+                "<leader>do" = "hover";
+                gD = "references";
+                gd = "definition";
+                gi = "implementation";
+                gt = "type_definition";
+              };
+            };
           };
 
           nvim-cmp = {
@@ -185,6 +206,7 @@
             key = "ww";
             mode = "t";
           }
+
           {
             action = "<ESC>";
             key = "jk";
@@ -257,11 +279,6 @@
             mode = "n";
           }
           {
-            action = ":BD<CR>";
-            key = "<C-w>";
-            mode = "n";
-          }
-          {
             action = ":ToggleTerm<CR>";
             key = "tt";
             mode = "n";
@@ -312,7 +329,26 @@
           "gleam" = with pkgs;
             mkShell {
               buildInputs = [ nvim ];
-              nativeBuildInputs = with pkgs; [ git zsh gleam ];
+              nativeBuildInputs = with pkgs; [
+                git
+                zsh
+                inputs.gleam-nixpkgs.legacyPackages.${system}.gleam
+                inputs.erlang-nixpkgs.legacyPackages.${system}.erlang_26
+                inputs.rebar3-nixpkgs.legacyPackages.${system}.rebar3
+              ];
+              shellHook = with pkgs; ''
+                clear
+                exec ${tmux}/bin/tmux
+              '';
+            };
+          "go" = with pkgs;
+            mkShell {
+              buildInputs = [ nvim ];
+              nativeBuildInputs = with pkgs; [
+                git
+                zsh
+                inputs.go-nixpkgs.legacyPackages.${system}.go_1_22
+              ];
               shellHook = with pkgs; ''
                 clear
                 exec ${tmux}/bin/tmux
