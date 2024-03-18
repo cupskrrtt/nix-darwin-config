@@ -394,7 +394,7 @@
 
       darwinConfigurations = let user = "cup";
       in {
-        "Luthfis-MacBook-Air" = darwin.lib.darwinSystem {
+        macos = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           specialArgs = inputs;
           modules = [
