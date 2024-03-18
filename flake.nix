@@ -320,6 +320,7 @@
                 inputs.nodejs-lts-nixpkgs.legacyPackages.${system}.nodejs_20
                 zsh
                 prettierd
+                typescript
               ];
               shellHook = with pkgs; ''
                 export DEV_SHELL_ENV="node"
