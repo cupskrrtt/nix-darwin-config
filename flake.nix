@@ -113,7 +113,7 @@
             };
           };
 
-          cmp = {
+          nvim-cmp = {
             enable = true;
             autoEnableSources = true;
             mapping = {
@@ -146,7 +146,11 @@
           luasnip.enable = true;
           luasnip.fromVscode = [ { } ];
 
-          friendly-snippets.enable = true;
+          lspkind = {
+            enable = true;
+            mode = "text";
+            cmp = { enable = true; };
+          };
 
           telescope.enable = true;
 
