@@ -14,6 +14,11 @@ in {
   homebrew = {
     enable = true;
     casks = pkgs.callPackage ./cask.nix { };
+    brews = [{
+      name = "mysql";
+      restart_service = true;
+      link = true;
+    }];
 
     # App IDs from using the mas CLI app
     #masApps = {};
@@ -46,7 +51,6 @@ in {
             gl = "lazygit";
             proj = "cd /Volumes/Cup/Dev/Projects/";
             work = "cd /Volumes/Cup/Dev/Work/";
-            mysql = "/usr/local/mysql/bin/mysql -u root -p";
           };
           initExtraFirst = ''
                         dev () {

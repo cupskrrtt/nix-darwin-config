@@ -4,7 +4,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     darwin = {
-      url = "github:LnL7/nix-darwin/master";
+      url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew = { url = "github:zhaofengli-wip/nix-homebrew"; };
@@ -320,7 +320,6 @@
                 inputs.nodejs-lts-nixpkgs.legacyPackages.${system}.nodejs_20
                 zsh
                 prettierd
-                typescript
               ];
               shellHook = with pkgs; ''
                 export DEV_SHELL_ENV="node"
@@ -395,7 +394,7 @@
 
       darwinConfigurations = let user = "cup";
       in {
-        macos = darwin.lib.darwinSystem {
+        "Luthfis-MacBook-Air" = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           specialArgs = inputs;
           modules = [
