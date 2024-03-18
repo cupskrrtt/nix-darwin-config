@@ -50,7 +50,7 @@
           swapfile = false;
         };
 
-        clipboard = { register = "unnamedplus"; };
+        clipboard.register = "unnamedplus";
 
         options = {
           encoding = "utf-8";
@@ -101,18 +101,19 @@
             '';
 
             keymaps = {
-              diagnostic = { "<leader>da" = "open_float"; };
+              diagnostic = { "<leader>do" = "open_float"; };
               lspBuf = {
-                "<leader>do" = "hover";
+                "<leader>dh" = "hover";
                 "<leader>dr" = "references";
                 "<leader>dd" = "definition";
                 "<leader>di" = "implementation";
                 "<leader>dt" = "type_definition";
+                "<leader>ca" = "code_action";
               };
             };
           };
 
-          nvim-cmp = {
+          cmp = {
             enable = true;
             autoEnableSources = true;
             mapping = {
@@ -138,15 +139,16 @@
             };
           };
 
-          luasnip = { enable = true; };
+          cmp-nvim-lsp.enable = true;
 
-          lspkind = {
-            enable = true;
-            mode = "text";
-            cmp = { enable = true; };
-          };
+          cmp_luasnip.enable = true;
 
-          telescope = { enable = true; };
+          luasnip.enable = true;
+          luasnip.fromVscode = [ { } ];
+
+          friendly-snippets.enable = true;
+
+          telescope.enable = true;
 
           treesitter = {
             enable = true;
@@ -159,11 +161,11 @@
             currentLineBlame = true;
           };
 
-          ts-autotag = { enable = true; };
+          ts-autotag.enable = true;
 
-          nvim-autopairs = { enable = true; };
+          nvim-autopairs.enable = true;
 
-          toggleterm = { enable = true; };
+          toggleterm.enable = true;
 
           conform-nvim = {
             enable = true;
@@ -181,7 +183,8 @@
             };
           };
 
-          markdown-preview = { enable = true; };
+          markdown-preview.enable = true;
+
         };
 
         colorschemes = {
@@ -300,6 +303,7 @@
               buildInputs = [ nvim ];
               nativeBuildInputs = with pkgs; [ git ];
               shellHook = with pkgs; ''
+                export DEV_SHELL_ENV="default"
                 clear 
                 exec ${tmux}/bin/tmux
               '';
@@ -314,6 +318,7 @@
                 prettierd
               ];
               shellHook = with pkgs; ''
+                export DEV_SHELL_ENV="node"
                 clear 
                 exec ${tmux}/bin/tmux
               '';
@@ -323,6 +328,7 @@
               buildInputs = [ nvim ];
               nativeBuildInputs = with pkgs; [ git zsh nixfmt ];
               shellHook = with pkgs; ''
+                export DEV_SHELL_ENV="nix"
                 clear
                 exec ${tmux}/bin/tmux
               '';
@@ -338,6 +344,7 @@
                 inputs.rebar3-nixpkgs.legacyPackages.${system}.rebar3
               ];
               shellHook = with pkgs; ''
+                export DEV_SHELL_ENV="gleam"
                 clear
                 exec ${tmux}/bin/tmux
               '';
@@ -351,6 +358,7 @@
                 inputs.go-nixpkgs.legacyPackages.${system}.go_1_22
               ];
               shellHook = with pkgs; ''
+                export DEV_SHELL_ENV="go"
                 clear
                 exec ${tmux}/bin/tmux
               '';

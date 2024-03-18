@@ -2,8 +2,7 @@
 
 let user = "cup";
 
-in
-{
+in {
   imports = [ ../modules/home-manager.nix ];
 
   # Auto upgrade nix package and the daemon service.
