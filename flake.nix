@@ -85,15 +85,15 @@
           lsp = {
             enable = true;
             servers = {
-              nil_ls = { enable = true; };
-              tsserver = { enable = true; };
-              eslint = { enable = true; };
-              tailwindcss = { enable = true; };
-              jsonls = { enable = true; };
-              prismals = { enable = true; };
-              html = { enable = true; };
-              gleam = { enable = true; };
-              gopls = { enable = true; };
+              nil_ls.enable = true;
+              tsserver.enable = true;
+              eslint.enable = true;
+              tailwindcss.enable = true;
+              jsonls.enable = true;
+              prismals.enable = true;
+              html.enable = true;
+              gopls.enable = true;
+              gleam.enable = true;
             };
 
             onAttach = ''
@@ -320,7 +320,7 @@
                 inputs.nodejs-lts-nixpkgs.legacyPackages.${system}.nodejs_20
                 zsh
                 prettierd
-		typescript
+                typescript
               ];
               shellHook = with pkgs; ''
                 export DEV_SHELL_ENV="node"
