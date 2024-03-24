@@ -94,6 +94,7 @@
               html.enable = true;
               gopls.enable = true;
               gleam.enable = true;
+              htmx.enable = true;
             };
 
             onAttach = ''
@@ -206,18 +207,17 @@
           }
           {
             action = ":q<CR>";
-            key = "ww";
+            key = "<C-BS>";
             mode = "n";
           }
           {
             action = "<C-\\><C-n>";
-            key = "ww";
+            key = "<C-BS>";
             mode = "t";
           }
-
           {
             action = "<ESC>";
-            key = "jk";
+            key = "<C-BS>";
             mode = "i";
           }
           {
