@@ -206,17 +206,17 @@
           }
           {
             action = ":q<CR>";
-            key = "<C-BS>";
+            key = "ww";
             mode = "n";
           }
           {
             action = "<C-\\><C-n>";
-            key = "<C-BS>";
+            key = "ww";
             mode = "t";
           }
           {
             action = "<ESC>";
-            key = "<C-BS>";
+            key = "<C-j><C-k>";
             mode = "i";
           }
           {
