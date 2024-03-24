@@ -199,25 +199,11 @@
         };
 
         keymaps = [
-          {
-            action = ":w<CR>";
-            key = "ss";
-            mode = "n";
-          }
-          {
-            action = ":q<CR>";
-            key = "ww";
-            mode = "n";
-          }
+
           {
             action = "<C-\\><C-n>";
-            key = "ww";
+            key = "<ESC>";
             mode = "t";
-          }
-          {
-            action = "<ESC>";
-            key = "<C-j><C-k>";
-            mode = "i";
           }
           {
             action = ":Explore<CR>";
