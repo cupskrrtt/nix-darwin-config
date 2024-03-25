@@ -339,7 +339,7 @@
                 exec ${tmux}/bin/tmux
               '';
             };
-          "go" = with pkgs;
+          "go:default" = with pkgs;
             mkShell {
               buildInputs = [ nvim ];
               nativeBuildInputs = with pkgs; [
@@ -348,11 +348,28 @@
                 inputs.go-nixpkgs.legacyPackages.${system}.go_1_22
               ];
               shellHook = with pkgs; ''
-                export DEV_SHELL_ENV="go"
+                export DEV_SHELL_ENV="go:default"
                 clear
                 exec ${tmux}/bin/tmux
               '';
             };
+          "go:htmx" = with pkgs;
+            mkShell {
+              buildInputs = [ nvim ];
+              nativeBuildInputs = with pkgs; [
+                git
+                zsh
+                inputs.go-nixpkgs.legacyPackages.${system}.go_1_22
+                inputs.nodejs-lts-nixpkgs.legacyPackages.${system}.nodejs_20
+                air
+              ];
+              shellHook = with pkgs; ''
+                export DEV_SHELL_ENV="go:htmx"
+                clear
+                exec ${tmux}/bin/tmux
+              '';
+            };
+
         };
       mkApp = scriptName: system: {
         type = "app";

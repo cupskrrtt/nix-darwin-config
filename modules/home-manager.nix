@@ -48,11 +48,13 @@ in {
             work = "cd /Volumes/Cup/Dev/Work/";
           };
           initExtraFirst = ''
-                        dev () {
-                           nix develop ~/nix-darwin-config#$1 -c zsh
-                        }
-            						eval "$(starship init zsh)"
-            					'';
+            eval "$(starship init zsh)"
+          '';
+          initExtra = ''
+            dev () {
+               nix develop ~/nix-darwin-config#$1 -c zsh
+            }
+          '';
         };
 
         tmux = {
