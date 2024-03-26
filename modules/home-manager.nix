@@ -46,14 +46,14 @@ in {
             gl = "lazygit";
             proj = "cd /Volumes/Cup/Dev/Projects/";
             work = "cd /Volumes/Cup/Dev/Work/";
-            templ = "$HOME/go/bin/templ";
           };
           initExtraFirst = ''
             eval "$(starship init zsh)"
           '';
           initExtra = ''
+            export PATH="$PATH:$HOME/go/bin"
             dev () {
-               nix develop ~/nix-darwin-config#$1 -c zsh
+              nix develop ~/nix-darwin-config#$1 -c zsh
             }
           '';
         };
