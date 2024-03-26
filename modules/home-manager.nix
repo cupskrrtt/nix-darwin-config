@@ -46,6 +46,7 @@ in {
             gl = "lazygit";
             proj = "cd /Volumes/Cup/Dev/Projects/";
             work = "cd /Volumes/Cup/Dev/Work/";
+            templ = "$HOME/go/bin/templ";
           };
           initExtraFirst = ''
             eval "$(starship init zsh)"
