@@ -393,6 +393,7 @@
 
     in {
       devShells = forAllSystem devShell;
+
       apps = nixpkgs.lib.genAttrs system mkDarwinApps;
 
       darwinConfigurations = let user = "cup";
