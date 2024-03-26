@@ -362,6 +362,7 @@
                 inputs.go-nixpkgs.legacyPackages.${system}.go_1_22
                 inputs.nodejs-lts-nixpkgs.legacyPackages.${system}.nodejs_20
                 air
+                pkgs.templ
               ];
               shellHook = with pkgs; ''
                 export DEV_SHELL_ENV="go:htmx"
