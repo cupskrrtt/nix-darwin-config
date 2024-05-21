@@ -94,6 +94,7 @@
               html.enable = true;
               gopls.enable = true;
               gleam.enable = true;
+              cssls.enable = true;
             };
 
             onAttach = ''
