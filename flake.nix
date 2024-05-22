@@ -36,6 +36,8 @@
       "github:nixos/nixpkgs/9a9dae8f6319600fa9aebde37f340975cab4b8c0";
     go-nixpkgs.url =
       "github:nixos/nixpkgs/58ae79ea707579c40102ddf62d84b902a987c58b";
+    bun-nixpkgs.url =
+      "github:nixos/nixpkgs/0837fbf227364d79cbae8fff2378125526905cbe";
 
   };
   outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core
@@ -314,6 +316,22 @@
                 exec ${tmux}/bin/tmux
               '';
             };
+          "bun" = with pkgs;
+            mkShell {
+              buildInputs = [ nvim ];
+              nativeBuildInputs = with pkgs; [
+                git
+                inputs.bun-nixpkgs.legacyPackages.${system}.bun
+                zsh
+                prettierd
+                typescript
+              ];
+              shellHook = with pkgs; ''
+                export DEV_SHELL_ENV="bun"
+                clear 
+                exec ${tmux}/bin/tmux
+              '';
+            };
           "nix" = with pkgs;
             mkShell {
               buildInputs = [ nvim ];
@@ -340,7 +358,7 @@
                 exec ${tmux}/bin/tmux
               '';
             };
-          "go:default" = with pkgs;
+          "go" = with pkgs;
             mkShell {
               buildInputs = [ nvim ];
               nativeBuildInputs = with pkgs; [
@@ -349,7 +367,7 @@
                 inputs.go-nixpkgs.legacyPackages.${system}.go_1_22
               ];
               shellHook = with pkgs; ''
-                export DEV_SHELL_ENV="go:default"
+                export DEV_SHELL_ENV="go"
                 clear
                 exec ${tmux}/bin/tmux
               '';
