@@ -17,6 +17,22 @@
         "type": "github"
       }
     },
+    "bun-nixpkgs": {
+      "locked": {
+        "lastModified": 1715969306,
+        "narHash": "sha256-9n7SSGF++IJSUQQNuYnj6NNiDjjWvkzABKiTeY24COQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "0837fbf227364d79cbae8fff2378125526905cbe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "0837fbf227364d79cbae8fff2378125526905cbe",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -440,6 +456,7 @@
     },
     "root": {
       "inputs": {
+        "bun-nixpkgs": "bun-nixpkgs",
         "darwin": "darwin",
         "erlang-nixpkgs": "erlang-nixpkgs",
         "gleam-nixpkgs": "gleam-nixpkgs",
