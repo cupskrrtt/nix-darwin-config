@@ -15,6 +15,7 @@ _:
   # Utility
   "rectangle"
   "hot"
+  "aldente"
 
   # Productivity
   "raycast"
