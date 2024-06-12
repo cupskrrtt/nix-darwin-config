@@ -88,7 +88,7 @@
             enable = true;
             servers = {
               nil_ls.enable = true;
-              tsserver.enable = true;
+              biome.enable = true;
               eslint.enable = true;
               tailwindcss.enable = true;
               jsonls.enable = true;
