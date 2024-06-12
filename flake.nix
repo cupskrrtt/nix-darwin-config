@@ -190,8 +190,6 @@
             };
           };
 
-          obsidian.enable = true;
-
         };
 
         colorschemes = {
