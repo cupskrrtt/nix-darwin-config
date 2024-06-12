@@ -190,7 +190,7 @@
             };
           };
 
-          markdown-preview.enable = true;
+          obsidian.enable = true;
 
         };
 
